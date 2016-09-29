@@ -8,6 +8,7 @@ describe('m2m', () => {
   const user = 'user';
   const password = 'password';
   const sim = '+56999999999';
+  const icc = '1111111111111111111';
 
   describe('errors', () => {
     beforeEach(() => {
@@ -64,7 +65,6 @@ describe('m2m', () => {
   });
 
   describe('success', () => {
-    const icc = '1111111111111111111';
     const tidgsm = '57c060d62b2ec871fb47146a';
     const tidgprs = '57c060d62b2ec871fb47146b';
     beforeEach(() => {
@@ -90,9 +90,19 @@ describe('m2m', () => {
         .reply(200, {result: 'GPRS_UP'});
     });
 
-    it('should return all status', done => {
+    it('should return all status by sim', done => {
       const client2 = new m2m({user: user, password: password});
       client2.checkSim(sim).then(result => {
+        expect(result.admin).to.be.true;
+        expect(result.gsm).to.be.true;
+        expect(result.gprs).to.be.true;
+        done();
+      }).catch(done);
+    });
+
+    it('should return all status by icc', done => {
+      const client2 = new m2m({user: user, password: password});
+      client2.checkIcc(icc).then(result => {
         expect(result.admin).to.be.true;
         expect(result.gsm).to.be.true;
         expect(result.gprs).to.be.true;
