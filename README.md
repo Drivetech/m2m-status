@@ -25,9 +25,13 @@ const m2m = require('m2m-status');
 const user = 'your-user';
 const password = 'your-password';
 const sim = '+569XXXXXXXX';
+const icc = 'XXXXXXXXXXXXXXXXXXX';
 
 const client = new m2m({user: user, password: password});
 client.checkSim(sim).then(console.log).catch(console.error);
+// { admin: true, gsm: true, gprs: false }
+client.checkIcc(icc).then(console.log).catch(console.error);
+// { admin: true, gsm: true, gprs: false }
 ```
 
 ## License
