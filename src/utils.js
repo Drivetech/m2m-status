@@ -27,7 +27,6 @@ const getIcc = data => {
   return sims(data)
     .then(results => {
       return results
-        .filter(x => x.o[0] === 'ACTIVE')
         .find(x => x.s[1] === data.sim.replace('+', ''));
     })
     .then(result => result ? result.s[0] : null);
