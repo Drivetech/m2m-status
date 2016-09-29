@@ -16,6 +16,14 @@ class Client {
     };
     return utils.getStatus(data);
   }
+  checkIcc(icc) {
+    const data = {
+      user: this.user,
+      password: this.password,
+      icc: icc
+    };
+    return utils.getStatus(data);
+  }
 }
 
 module.exports = Client;
