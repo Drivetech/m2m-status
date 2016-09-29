@@ -27,7 +27,11 @@ const getIcc = data => {
   return sims(data)
     .then(results => {
       return results
-        .find(x => x.s[1] === data.sim.replace('+', ''));
+        .find(x => {
+          const idx = typeof data.sim !== 'undefined' ? 1 : 0;
+          const value = typeof data.sim !== 'undefined' ? data.sim.replace('+', '') : data.icc;
+          return x.s[idx] === value;
+        });
     })
     .then(result => result ? result.s[0] : null);
 };
