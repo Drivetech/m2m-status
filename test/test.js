@@ -34,6 +34,14 @@ describe('m2m', () => {
       });
     });
 
+    it('should return wrong credentials error', done => {
+      const client = new m2m({user: user, password: password});
+      client.listSims().catch(err => {
+        expect(err.message).to.eql('Login failed');
+        done();
+      });
+    });
+
     afterEach(() => {
       nock.enableNetConnect();
       nock.cleanAll();
@@ -47,7 +55,13 @@ describe('m2m', () => {
         .post('/plataforma/login')
         .reply(200, 'location.href = http://m2mdataglobal.com/plataforma/')
         .get('/plataforma/sims/lista')
-        .reply(200, [{s: ['1111111111111111111', '5688888888'], o: ['INACTIVE']}]);
+        .reply(200, [{
+          s: ['1111111111111111111', '5688888888', '', '', '', '', '', ''],
+          p: ['', ''],
+          o: ['INACTIVE', '', '', '', '', ''],
+          c: ['', '', '', '', '', ''],
+          e: ['', '', '', '', '', '']
+        }]);
     });
 
     it('should return not found error', done => {
@@ -74,7 +88,13 @@ describe('m2m', () => {
         .reply(200, 'location.href = http://m2mdataglobal.com/plataforma/');
       nock('http://m2mdataglobal.com')
         .get('/plataforma/sims/lista')
-        .reply(200, [{s: [icc, '56999999999'], o: ['ACTIVE']}]);
+        .reply(200, [{
+          s: [icc, '56999999999', '', '123456789012345', 'SIM840W', 'cll', 'l', 'GPS_CL_20M_BAS_CH'],
+          p: ['', ''],
+          o: ['ACTIVE', '', '', '', '', '1'],
+          c: ['', '', '', '', '', ''],
+          e: ['', '', '', '', '', '']
+        }]);
       nock('http://m2mdataglobal.com')
         .get(`/plataforma/sims/testSim?icc=${icc}&o=clL&modo=administrative`)
         .reply(200, {globalStatus: true});
@@ -93,9 +113,10 @@ describe('m2m', () => {
     it('should return all status by sim', done => {
       const client2 = new m2m({user: user, password: password});
       client2.checkSim(sim).then(result => {
-        expect(result.admin).to.be.true;
-        expect(result.gsm).to.be.true;
-        expect(result.gprs).to.be.true;
+        expect(result.sim).to.eql(sim);
+        expect(result.status.admin).to.be.true;
+        expect(result.status.gsm).to.be.true;
+        expect(result.status.gprs).to.be.true;
         done();
       }).catch(done);
     });
@@ -103,9 +124,19 @@ describe('m2m', () => {
     it('should return all status by icc', done => {
       const client2 = new m2m({user: user, password: password});
       client2.checkIcc(icc).then(result => {
-        expect(result.admin).to.be.true;
-        expect(result.gsm).to.be.true;
-        expect(result.gprs).to.be.true;
+        expect(result.icc).to.eql(icc);
+        expect(result.status.admin).to.be.true;
+        expect(result.status.gsm).to.be.true;
+        expect(result.status.gprs).to.be.true;
+        done();
+      }).catch(done);
+    });
+
+    it('should return all sims', done => {
+      const client2 = new m2m({user: user, password: password});
+      client2.listSims().then(results => {
+        expect(results[0].icc).to.eql(icc);
+        expect(results[0].sim).to.eql(sim);
         done();
       }).catch(done);
     });

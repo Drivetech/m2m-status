@@ -8,20 +8,20 @@ class Client {
     this.user = data.user;
     this.password = data.password;
   }
+  getCredentials() {
+    return {user: this.user, password: this.password};
+  }
+  listSims() {
+    return utils.listSims(this.getCredentials());
+  }
   checkSim(sim) {
-    const data = {
-      user: this.user,
-      password: this.password,
-      sim: sim
-    };
+    const data = this.getCredentials();
+    data.sim = sim;
     return utils.getStatus(data);
   }
   checkIcc(icc) {
-    const data = {
-      user: this.user,
-      password: this.password,
-      icc: icc
-    };
+    const data = this.getCredentials();
+    data.icc = icc;
     return utils.getStatus(data);
   }
 }
