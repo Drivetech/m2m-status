@@ -21,7 +21,8 @@
   },
   "keywords": [
     "sim",
-    "m2m"
+    "m2m",
+    "m2mdataglobal"
   ],
   "author": "Leonardo Gatica <lgatica@protonmail.com> (https://about.me/lgaticaq)",
   "license": "MIT",
