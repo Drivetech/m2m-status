@@ -8,7 +8,7 @@
 [![dependency Status](https://img.shields.io/david/lgaticaq/m2m-status.svg?style=flat-square)](https://david-dm.org/lgaticaq/m2m-status#info=dependencies)
 [![devDependency Status](https://img.shields.io/david/dev/lgaticaq/m2m-status.svg?style=flat-square)](https://david-dm.org/lgaticaq/m2m-status#info=devDependencies)
 
-> Check status of your m2m-status sims
+> Check status of your m2mdataglobal sims
 
 ## Installation
 
@@ -29,9 +29,85 @@ const icc = 'XXXXXXXXXXXXXXXXXXX';
 
 const client = new m2m({user: user, password: password});
 client.checkSim(sim).then(console.log).catch(console.error);
-// { admin: true, gsm: true, gprs: false }
+/*
+{
+  icc: 'XXXXXXXXXXXXXXXXXXX',
+  sim: '+569XXXXXXXX',
+  imei: 'XXXXXXXXXXXXXXX',
+  device: 'SIM840W',
+  country: 'Chile',
+  type: 'Local',
+  plan: 'GPS_CL_20M_BAS_CH',
+  customs: [ '', '' ],
+  provider: {
+    state: 'ACTIVE',
+    ip: 'XXX.XXX.XXX.XXX',
+    apn: 'm2m.movistar.cl',
+    country: 'Chile',
+    operator: 'Movistar Chile',
+    gprs: 'Activos'
+  },
+  traffic: {
+    monthly: {voice: '238', data: '15933440', sms: '0'},
+    daily: {voice: '0', data: '1162240', sms: '0'}
+  },
+  enterprise: null,
+  status: {admin: true, gsm: true, gprs: true}
+}
+*/
 client.checkIcc(icc).then(console.log).catch(console.error);
-// { admin: true, gsm: true, gprs: false }
+/*
+{
+  icc: 'XXXXXXXXXXXXXXXXXXX',
+  sim: '+569XXXXXXXX',
+  imei: 'XXXXXXXXXXXXXXX',
+  device: 'SIM840W',
+  country: 'Chile',
+  type: 'Local',
+  plan: 'GPS_CL_20M_BAS_CH',
+  customs: [ '', '' ],
+  provider: {
+    state: 'ACTIVE',
+    ip: 'XXX.XXX.XXX.XXX',
+    apn: 'm2m.movistar.cl',
+    country: 'Chile',
+    operator: 'Movistar Chile',
+    gprs: 'Activos'
+  },
+  traffic: {
+    monthly: {voice: '238', data: '15933440', sms: '0'},
+    daily: {voice: '0', data: '1162240', sms: '0'}
+  },
+  enterprise: null,
+  status: {admin: true, gsm: true, gprs: true}
+}
+*/
+client.listSims().then(console.log).catch(console.error);
+/*
+[{
+  icc: 'XXXXXXXXXXXXXXXXXXX',
+  sim: '+569XXXXXXXX',
+  imei: 'XXXXXXXXXXXXXXX',
+  device: 'SIM840W',
+  country: 'Chile',
+  type: 'Local',
+  plan: 'GPS_CL_20M_BAS_CH',
+  customs: [ '', '' ],
+  provider: {
+    state: 'ACTIVE',
+    ip: 'XXX.XXX.XXX.XXX',
+    apn: 'm2m.movistar.cl',
+    country: 'Chile',
+    operator: 'Movistar Chile',
+    gprs: 'Activos'
+  },
+  traffic: {
+    monthly: {voice: '238', data: '15933440', sms: '0'},
+    daily: {voice: '0', data: '1162240', sms: '0'}
+  },
+  enterprise: null
+}]
+*/
 ```
 
 ## License
