@@ -1,3 +1,33 @@
+#### 1.0.1 (2017-09-25)
+
+##### Chores
+
+* **package:**
+  * update dependencies ([9d850623](https://github.com/lgaticaq/m2m-status/commit/9d850623e9bf85e615348d4826f208347dd343e9))
+  * remove yarn and add package-lock ([46538bc4](https://github.com/lgaticaq/m2m-status/commit/46538bc408eb17565370b331b60cfeabab825bcf))
+  * move eslintignore to package ([5369bfd9](https://github.com/lgaticaq/m2m-status/commit/5369bfd9fd60ef78c60382971c2b9e235db61949))
+  * update eslint to version 4.0.0 ([1b0fa1aa](https://github.com/lgaticaq/m2m-status/commit/1b0fa1aaadc6f74f70a0e297130c24b542b19031))
+  * update codeclimate-test-reporter to version 0.5.0 ([590372d0](https://github.com/lgaticaq/m2m-status/commit/590372d0c44b58ab38fa1fa6e44c6608e47c7a95))
+  * update chai to version 4.0.0 ([d0953608](https://github.com/lgaticaq/m2m-status/commit/d09536086c2344d67047e4fb34fe784a010ece7b))
+  * update nock to version 9.0.0 ([c79af134](https://github.com/lgaticaq/m2m-status/commit/c79af1345a820cf311ce30272259ee31d1ab6bfa))
+* **nvm:** update node to v8 ([d20e4ccb](https://github.com/lgaticaq/m2m-status/commit/d20e4ccb2ae538ebedb3c843027237fff2ecdddc))
+
+##### Continuous Integration
+
+* **node:** update node versions ([8ce2ae7e](https://github.com/lgaticaq/m2m-status/commit/8ce2ae7e97d65e7a630cde36a97a604c5699c4e0))
+
+##### Documentation Changes
+
+* **README:** update example ([4f51233b](https://github.com/lgaticaq/m2m-status/commit/4f51233beed510de6beeae372671b60da6c17e75))
+
+##### Bug Fixes
+
+* **domain:** update request domain and response ([607bf8bf](https://github.com/lgaticaq/m2m-status/commit/607bf8bf8f023dd5a846516f233d945639a55340))
+
+##### Code Style Changes
+
+* **standard:** migrate to standard ([b64a533d](https://github.com/lgaticaq/m2m-status/commit/b64a533d49a887448f4bcc340630c9d06c8e2d51))
+
 ## 1.0.0 (2016-10-12)
 
 ##### Chores
