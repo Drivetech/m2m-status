@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const rp = require('request-promise');
+const rp = require('request-promise')
 
 const login = data => {
   const options = {
@@ -13,9 +13,9 @@ const login = data => {
     },
     simple: false,
     resolveWithFullResponse: true
-  };
-  return data.rp(options).then(res => res.headers.location);
-};
+  }
+  return data.rp(options).then(res => res.headers.location)
+}
 
 const getCountry = country => {
   const countries = {
@@ -29,28 +29,28 @@ const getCountry = country => {
     CO: 'Colombia',
     PE: 'Peru',
     BO: 'Bolivia'
-  };
-  const _country = country.toUpperCase();
-  return countries.hasOwnProperty(_country) ? countries[_country] : null;
-};
+  }
+  const _country = country.toUpperCase()
+  return countries.hasOwnProperty(_country) ? countries[_country] : null
+}
 
 const getType = type => {
   const types = {
     g: 'Global',
     l: 'Local',
     le: 'Legacy'
-  };
-  return types.hasOwnProperty(type) ? types[type] : null;
-};
+  }
+  return types.hasOwnProperty(type) ? types[type] : null
+}
 
 const gprsStatus = state => {
   const status = {
     '1': 'Activos',
     '2': 'Inactivos',
     '0': 'No Disponibles'
-  };
-  return status.hasOwnProperty(state) ? status[state] : null;
-};
+  }
+  return status.hasOwnProperty(state) ? status[state] : null
+}
 
 const parseResult = data => {
   return {
@@ -83,99 +83,100 @@ const parseResult = data => {
       }
     },
     enterprise: data.e[0]
-  };
-};
+  }
+}
 
 const sims = data => {
   const options = {
     url: 'http://www.m2mdataglobal.com/plataforma/sims/lista',
     json: true
-  };
-  return data.rp(options).then(results => results.map(x => parseResult(x)));
-};
+  }
+  return data.rp(options).then(results => results.map(x => parseResult(x)))
+}
 
 const getSim = data => {
-  return sims(data)
-    .then(results => {
-      return results
-        .find(x => {
-          const key = typeof data.sim !== 'undefined' ? 'sim' : 'icc';
-          const value = typeof data.sim !== 'undefined' ? data.sim : data.icc;
-          return x[key] === value;
-        });
-    });
-};
+  return sims(data).then(results => {
+    return results.find(x => {
+      const key = typeof data.sim !== 'undefined' ? 'sim' : 'icc'
+      const value = typeof data.sim !== 'undefined' ? data.sim : data.icc
+      return x[key] === value
+    })
+  })
+}
 
 const testSim = (data, mode) => {
   const options = {
     url: 'http://www.m2mdataglobal.com/plataforma/sims/testSim',
-    qs: {icc: data.icc, o: data.o || 'clL', modo: mode},
+    qs: { icc: data.icc, o: data.o || 'clL', modo: mode },
     json: true
-  };
-  return data.rp(options);
-};
+  }
+  return data.rp(options)
+}
 
 const testSim2 = (data, mode) => {
   const success = {
-    'gsm': 'GSM_UP',
-    'gprs': 'GPRS_UP'
-  };
+    gsm: 'GSM_UP',
+    gprs: 'GPRS_UP'
+  }
   return testSim(data, mode)
     .then(res => res.transactionId)
     .then(transactionId => {
       const options = {
         url: 'http://www.m2mdataglobal.com/plataforma/sims/testSim2',
-        qs: {tid: transactionId, o: data.o || 'clL'},
+        qs: { tid: transactionId, o: data.o || 'clL' },
         json: true
-      };
-      return data.rp(options);
+      }
+      return data.rp(options)
     })
-    .then(res => res.result === success[mode]);
-};
+    .then(res => res.result === success[mode])
+}
 
 const checkAdmin = data => {
-  return testSim(data, 'administrative').then(res => res.globalStatus === true);
-};
+  return testSim(data, 'administrative').then(res => res.globalStatus === true)
+}
 
 const getStatus = options => {
-  options.rp = rp.defaults({jar: true});
+  options.rp = rp.defaults({ jar: true })
   return login(options)
     .then(result => {
-      if (!result) return Promise.reject(new Error('Login failed'));
-      return getSim(options);
+      if (!result) return Promise.reject(new Error('Login failed'))
+      return getSim(options)
     })
     .then(data => {
-      if (typeof data === 'undefined') return Promise.reject(new Error(`Sim ${options.sim} not found or not active`));
-      options.icc = data.icc;
+      if (typeof data === 'undefined') {
+        return Promise.reject(
+          new Error(`Sim ${options.sim} not found or not active`)
+        )
+      }
+      options.icc = data.icc
       const promises = [
         checkAdmin(options),
         testSim2(options, 'gsm'),
         testSim2(options, 'gprs'),
         Promise.resolve(data)
-      ];
-      return Promise.all(promises);
+      ]
+      return Promise.all(promises)
     })
     .then(results => {
-      const data = results[3];
+      const data = results[3]
       data.status = {
         admin: results[0],
         gsm: results[1],
         gprs: results[2]
-      };
-      return data;
-    });
-};
+      }
+      return data
+    })
+}
 
 const listSims = data => {
-  data.rp = rp.defaults({jar: true});
-  return login(data)
-    .then(result => {
-      if (!result) return Promise.reject(new Error('Login failed'));
-      return sims(data);
-    });
-};
+  data.rp = rp.defaults({ jar: true })
+  return login(data).then(result => {
+    if (!result) return Promise.reject(new Error('Login failed'))
+    return sims(data)
+  })
+}
 
 module.exports = {
   getStatus: getStatus,
   listSims: listSims
-};
+}

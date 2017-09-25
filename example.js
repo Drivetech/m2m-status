@@ -1,8 +1,8 @@
-const m2m = require('m2m-status');
+const M2M = require('m2m-status')
 
-const user = 'your-user';
-const password = 'your-password';
-const sim = '+569XXXXXXXX';
+const user = 'your-user'
+const password = 'your-password'
+const sim = '+569XXXXXXXX'
 
-const client = new m2m({user: user, password: password});
-await client.checkSim(sim);
+const client = new M2M({user: user, password: password})
+await client.checkSim(sim)
