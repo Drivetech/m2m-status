@@ -13,7 +13,7 @@ describe('m2m', () => {
   describe('errors', () => {
     beforeEach(() => {
       nock.disableNetConnect();
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .post('/plataforma/login')
         .reply(200, 'Usuario o contraseña incorrectos');
     });
@@ -51,9 +51,9 @@ describe('m2m', () => {
   describe('not found', () => {
     beforeEach(() => {
       nock.disableNetConnect();
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .post('/plataforma/login')
-        .reply(200, 'location.href = http://m2mdataglobal.com/plataforma/')
+        .reply(302, '', {location: 'http://www.m2mdataglobal.com/plataforma/'})
         .get('/plataforma/sims/lista')
         .reply(200, [{
           s: ['1111111111111111111', '5688888888', '', '', '', '', '', ''],
@@ -83,10 +83,10 @@ describe('m2m', () => {
     const tidgprs = '57c060d62b2ec871fb47146b';
     beforeEach(() => {
       nock.disableNetConnect();
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .post('/plataforma/login')
-        .reply(200, 'location.href = http://m2mdataglobal.com/plataforma/');
-      nock('http://m2mdataglobal.com')
+        .reply(302, '', {location: 'http://www.m2mdataglobal.com/plataforma/'});
+      nock('http://www.m2mdataglobal.com')
         .get('/plataforma/sims/lista')
         .reply(200, [{
           s: [icc, '56999999999', '', '123456789012345', 'SIM840W', 'cll', 'l', 'GPS_CL_20M_BAS_CH'],
@@ -95,15 +95,15 @@ describe('m2m', () => {
           c: ['', '', '', '', '', ''],
           e: ['', '', '', '', '', '']
         }]);
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .get(`/plataforma/sims/testSim?icc=${icc}&o=clL&modo=administrative`)
         .reply(200, {globalStatus: true});
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .get(`/plataforma/sims/testSim?icc=${icc}&o=clL&modo=gsm`)
         .reply(200, {transactionId: tidgsm})
         .get(`/plataforma/sims/testSim2?tid=${tidgsm}&o=clL`)
         .reply(200, {result: 'GSM_UP'});
-      nock('http://m2mdataglobal.com')
+      nock('http://www.m2mdataglobal.com')
         .get(`/plataforma/sims/testSim?icc=${icc}&o=clL&modo=gprs`)
         .reply(200, {transactionId: tidgprs})
         .get(`/plataforma/sims/testSim2?tid=${tidgprs}&o=clL`)

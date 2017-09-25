@@ -5,14 +5,16 @@ const rp = require('request-promise');
 const login = data => {
   const options = {
     method: 'POST',
-    url: 'http://m2mdataglobal.com/plataforma/login',
+    url: 'http://www.m2mdataglobal.com/plataforma/login',
     form: {
       usuario: data.user,
       pass: data.password,
       entrar: 'Iniciar+sesión'
-    }
+    },
+    simple: false,
+    resolveWithFullResponse: true
   };
-  return data.rp(options).then(res => /location\.href/.test(res));
+  return data.rp(options).then(res => res.headers.location);
 };
 
 const getCountry = country => {
@@ -86,7 +88,7 @@ const parseResult = data => {
 
 const sims = data => {
   const options = {
-    url: 'http://m2mdataglobal.com/plataforma/sims/lista',
+    url: 'http://www.m2mdataglobal.com/plataforma/sims/lista',
     json: true
   };
   return data.rp(options).then(results => results.map(x => parseResult(x)));
@@ -106,7 +108,7 @@ const getSim = data => {
 
 const testSim = (data, mode) => {
   const options = {
-    url: 'http://m2mdataglobal.com/plataforma/sims/testSim',
+    url: 'http://www.m2mdataglobal.com/plataforma/sims/testSim',
     qs: {icc: data.icc, o: data.o || 'clL', modo: mode},
     json: true
   };
@@ -122,7 +124,7 @@ const testSim2 = (data, mode) => {
     .then(res => res.transactionId)
     .then(transactionId => {
       const options = {
-        url: 'http://m2mdataglobal.com/plataforma/sims/testSim2',
+        url: 'http://www.m2mdataglobal.com/plataforma/sims/testSim2',
         qs: {tid: transactionId, o: data.o || 'clL'},
         json: true
       };
