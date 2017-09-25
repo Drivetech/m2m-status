@@ -1,3 +1,17 @@
+#### 1.0.2 (2017-09-25)
+
+##### Chores
+
+* **deps:**
+  * update dependency eslint to v4.7.0 ([0443de78](https://github.com/lgaticaq/m2m-status/commit/0443de7853744eb7b460042d1c924ebcd9c4c2e3))
+  * update dependency mocha to v3.5.3 ([60a709f1](https://github.com/lgaticaq/m2m-status/commit/60a709f16e9a34382768c3cf22640fc483c76e79))
+  * update dependency mocha to v3.5.2 ([076d1984](https://github.com/lgaticaq/m2m-status/commit/076d19847d85bf5b7d9b30aa57b74654ffd5592f))
+  * update dependency mocha to v3.5.1 ([f79b1550](https://github.com/lgaticaq/m2m-status/commit/f79b1550be534572df760ba2a23e6f59f6b36650))
+
+##### Refactors
+
+* **deps:** renovate pin dependencies packages ([3b532e82](https://github.com/lgaticaq/m2m-status/commit/3b532e82cf59f372ffd708a874ad521b1e6ca6e6))
+
 #### 1.0.1 (2017-09-25)
 
 ##### Chores
