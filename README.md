@@ -18,17 +18,16 @@ npm i -S m2m-status
 
 ## Use
 
-[Try on Tonic](https://tonicdev.com/npm/m2m-status)
+[Try on RunKit](https://npm.runkit.com/m2m-status)
 ```js
-const m2m = require('m2m-status');
+const M2M = require('m2m-status')
 
-const user = 'your-user';
-const password = 'your-password';
-const sim = '+569XXXXXXXX';
-const icc = 'XXXXXXXXXXXXXXXXXXX';
+const user = 'your-user'
+const password = 'your-password'
+const sim = '+569XXXXXXXX'
 
-const client = new m2m({user: user, password: password});
-client.checkSim(sim).then(console.log).catch(console.error);
+const client = new M2M({user: user, password: password})
+client.checkSim(sim).then(console.log).catch(console.error)
 /*
 {
   icc: 'XXXXXXXXXXXXXXXXXXX',
