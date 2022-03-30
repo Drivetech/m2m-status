@@ -10,7 +10,9 @@
     "test": "istanbul cover _mocha",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags && npm publish",
     "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags && npm publish",
-    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags && npm publish"
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags && npm publish",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "engines": {
     "node": ">=6"
@@ -32,7 +34,8 @@
   "homepage": "https://github.com/lgaticaq/m2m-status#readme",
   "dependencies": {
     "request": "2.88.2",
-    "request-promise": "4.2.6"
+    "request-promise": "4.2.6",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "chai": "4.3.4",
@@ -69,5 +72,6 @@
     "extends": [
       ":library"
     ]
-  }
+  },
+  "snyk": true
 }
